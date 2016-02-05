@@ -1,3 +1,3 @@
-var html = require('./readme.md');
+var html = require('./test.md');
 require('../index.css')
 document.getElementById('container').innerHTML = html;

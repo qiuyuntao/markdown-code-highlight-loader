@@ -1,15 +1,6 @@
-start
----
-
-```js
-var html = require('./readme.md');
-require('../index.css')
-document.getElementById('container').innerHTML = html;
-```
-
+### how to start this example
 
 ```
-var html = require('./readme.md');
-require('../index.css')
-document.getElementById('container').innerHTML = html;
+npm install
+npm start
 ```
