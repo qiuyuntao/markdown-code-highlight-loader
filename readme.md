@@ -6,6 +6,8 @@ This is a webpack loader, use [marked](https://github.com/chjj/marked) to transl
 And use [highlight.js](https://github.com/isagalaev/highlight.js) to highlight your code when you write in your `*.md`
 
 ### [how to use](./example)
+  * `npm install markdown-code-highlight-loader --save` in your project
+
   * in your `webpack.config.js`, write like This
 
     ```
