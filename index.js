@@ -10,49 +10,48 @@ var highlightAuto = hl.highlightAuto;
 
 // default option
 var options = {
-    renderer: new marked.Renderer(),
-    gfm: true,
-    tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: true,
-    smartLists: true,
-    smartypants: false
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
 };
 
-module.exports = function (markdown) {
-    var query = loaderUtils.parseQuery(this.query);
-    var configKey = query.config || "markdownLoader";
-    var options = assign({}, options, query, this.options[configKey]);
+module.exports = function(markdown) {
+  var query = loaderUtils.parseQuery(this.query);
+  var configKey = query.config || "markdownLoader";
+  var options = assign({}, options, query, this.options[configKey]);
 
-    this.cacheable();
+  this.cacheable();
 
-    marked.setOptions(options);
+  marked.setOptions(options);
 
-    var markdownTpl = marked(markdown);
+  var markdownTpl = marked(markdown);
 
-    this && this.cacheable && this.cacheable();
+  this && this.cacheable && this.cacheable();
 
-    var $ = cheerio.load(markdownTpl);
+  var $ = cheerio.load(markdownTpl);
 
-    $('pre code').replaceWith(function(i, block) {
-      var $e = $(block);
-      var text = $e.text();
+  $('pre code').replaceWith(function(i, block) {
+    var $e = $(block);
+    var text = $e.text();
 
-      var klass = $e.attr('class') || '';
-      var languageType = klass.split('lang-').filter(id);
-      console.log(languageType, 'languageType');
-      if (languageType.length) {
-        return highlightAuto(text, languageType).value;
-      } else {
-        return highlightAuto(text).value;
-      }
+    var klass = $e.attr('class') || '';
+    var languageType = klass.split('lang-').filter(id);
+    if (languageType.length) {
+      return highlightAuto(text, languageType).value;
+    } else {
+      return highlightAuto(text).value;
+    }
 
-    });
+  });
 
-    $('pre').addClass('hljs');
+  $('pre').addClass('hljs');
 
-    return $.html();
+  return $.html();
 };
 
 function id(type) {
