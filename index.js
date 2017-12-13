@@ -25,8 +25,6 @@ module.exports = function(markdown) {
   var configKey = query.config || "markdownLoader";
   var options = assign({}, options, query, this.options[configKey]);
 
-  this.cacheable();
-
   marked.setOptions(options);
 
   var markdownTpl = marked(markdown);
